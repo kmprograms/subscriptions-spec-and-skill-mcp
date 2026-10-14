@@ -1,0 +1,15 @@
+Przygotowanie projektu, od którego zaczynamy:
+>> git clone https://github.com/kmprograms/subscriptions-spec-and-skill
+>> cd subscriptions-spec-and-skill/skill-pro
+>> uv sync
+
+Sposoby uruchomienia aplikacji:
+
+-> Standardowy sposób uruchomienia aplikacji:
+>> uv run subskrypcje data/wyciag-przyklad.csv
+
+-> Uruchom aplikację z ukrytym strumieniem błędów
+>> uv run subskrypcje data/wyciag-przyklad.csv 2>$null
+
+-> Uruchomienie testów:
+>> uv run pytest

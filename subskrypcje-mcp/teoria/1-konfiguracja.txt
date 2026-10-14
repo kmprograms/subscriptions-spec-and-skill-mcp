@@ -1,0 +1,17 @@
+Utwórz nowy projekt:
+>> uv init --package --python 3.14 subskrypcje-mcp
+>> cd subskrypcje-mcp
+
+Dodaj zależności:
+>> uv add mcp
+>> uv add "subskrypcje @ git+https://github.com/kmprograms/subscriptions-spec-and-skill#subdirectory=skill-pro"
+>> uv add --dev ruff pytest
+
+Uruchomienie
+>> uv run subskrypcje-mcp
+
+Sprawdzenie działania MCP za pomocą MCP Inspector:
+>> npx @modelcontextprotocol/inspector uv run subskrypcje-mcp
+
+Uruchomienie w Claude Code:
+>> claude mcp add subskrypcje --scope project -e PYTHONUTF8=1 -- uv run subskrypcje-mcp

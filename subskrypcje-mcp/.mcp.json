@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "subskrypcje": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "subskrypcje-mcp"
+      ],
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}

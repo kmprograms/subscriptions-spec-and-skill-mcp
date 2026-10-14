@@ -1,0 +1,13 @@
+# subskrypcje
+- Run: `uv run subskrypcje <plik.csv> [--log-format console|json] [--log-level DEBUG|INFO|WARNING]`
+- Test: `uv run pytest`. Lint: `uv run ruff format .` i `uv run ruff check --fix .`
+- Specyfikacja: SPEC.md. Plik `data/wyciag-przyklad.csv` jest wzorcowy, nie zmieniaj go.
+- Heksagonalnie: adapters -> application -> domain. Tylko `main.py` zna klasy adapterów.
+- `domain`: czysty Python, bez IO, logów i structlog. Kwoty `Decimal`, daty `date`, `@dataclass(frozen=True, slots=True)`.
+- `application`: porty jako `Protocol`, wyjątki w `errors.py`, use case loguje liczniki.
+- Adapter outbound parsuje CSV i zamienia błędy IO na wyjątki aplikacji. Inbound: argparse, formatowanie, kod wyjścia.
+- Logi: structlog na stderr, zdarzenia snake_case, bez nazw kontrahentów i kwot. `configure_logging` woła tylko `main.py`.
+- Wynik tylko na stdout przez `print` w `adapters/inbound/cli.py`.
+- Pliki zawsze z `encoding="utf-8"`, CSV z `newline=""`. Zależności tylko przez `uv add`.
+- Testy: unit (fałszywy adapter), integration (tmp_path), e2e (`main(argv)` + capsys), `test_architecture.py`.
+- Bez `mock.patch`, `skip`, `xfail`, `noqa`. Logi testuj przez `structlog.testing.capture_logs()`.

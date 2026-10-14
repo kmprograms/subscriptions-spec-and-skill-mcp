@@ -1,0 +1,23 @@
+MCP (Model Context Protocol) to otwarty protokół, który łączy aplikacje AI z danymi
+i narzędziami. Przyjęły go Anthropic, OpenAI, Microsoft i Google, a sam protokół trafił
+do Linux Foundation. Piszesz serwer raz i działa on w każdym kliencie zgodnym z MCP.
+
+W MCP są trzy role. Host to aplikacja, z którą rozmawiasz, u nas Claude Code. Klient MCP działa
+wewnątrz hosta i utrzymuje połączenie z jednym serwerem. Serwer MCP to nasz program w Pythonie.
+
+Serwer może udostępnić trzy rodzaje elementów. Narzędzia to funkcje, które wywołuje model, gdy
+uzna, że ich potrzebuje. Zasoby to dane, które dołącza użytkownik albo aplikacja. Prompty to
+gotowe szablony poleceń wybierane przez użytkownika.
+
+Klient i serwer wymieniają wiadomości JSON-RPC. Lokalnie używamy transportu stdio. Claude Code
+uruchamia nasz serwer jako proces i rozmawia z nim przez standardowe wejście i wyjście. Do
+serwerów zdalnych służy transport Streamable HTTP.
+
+Nasz serwer udostępni dwa narzędzia i jeden zasób. Narzędzie monthly_subscription_cost zwraca
+sumę wydatków na subskrypcje w miesiącu i w roku oraz koszt każdej subskrypcji. Narzędzie
+price_increases zwraca subskrypcje, które podrożały: starą i nową cenę, wzrost w złotych
+i w procentach oraz dodatkowy koszt roczny. Zasób subskrypcje://raport to pełny raport
+z domyślnego wyciągu w formacie JSON.
+
+Serwer tylko czyta dane. Pod spodem działa kod z poprzedniego nagrania, bez zmian. Między
+nim a serwerem postawimy klasę StatementStore, która pilnuje bezpiecznego dostępu do plików.
